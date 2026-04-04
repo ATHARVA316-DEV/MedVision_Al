@@ -1,0 +1,23 @@
+# MedVision AI - Global Ignore
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+backend/data/*.json
+backend/models/*.pkl
+
+# Node
+node_modules/
+frontend/dist/
+frontend/node_modules/
+.eslintcache
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Production
+dist/
+build/

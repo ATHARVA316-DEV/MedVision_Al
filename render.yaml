@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: medvision-ai
+    runtime: python
+    buildCommand: |
+      cd frontend && npm install && npm run build && cd ..
+      cd backend && pip install -r requirements.txt && python training/create_demo_models.py
+    startCommand: cd backend && python app.py
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: PYTHON_VERSION
+        value: 3.10.0
+      - key: NODE_VERSION
+        value: 20

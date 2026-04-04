@@ -1,0 +1,403 @@
+/* ─── Report Page Styles ────────────────────────────────────────────────────── */
+.report-page {
+  min-height: 100vh;
+  background: var(--bg-light);
+}
+
+.report-loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.spinner-large {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e2e8f0;
+  border-top-color: var(--primary-500);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Header Bar */
+.report-header-bar {
+  background: var(--bg-dark);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.rhb-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.rhb-left h1 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-white);
+}
+
+.rhb-right {
+  display: flex;
+  gap: 10px;
+}
+
+/* Report Container */
+.report-container {
+  max-width: 800px;
+  margin: 32px auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Title Section */
+.report-title-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: white;
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.report-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.report-logo h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.report-logo p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.report-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Patient Card */
+.report-patient-card {
+  background: white;
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.report-patient-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--primary-700);
+}
+
+.rpc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.rpc-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.rpc-value {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* Risk Card */
+.report-risk-card {
+  background: white;
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.risk-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.risk-header h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-700);
+}
+
+.risk-summary {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Result Card */
+.report-result-card {
+  background: white;
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.rrc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.rrc-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rrc-icon {
+  font-size: 1.5rem;
+}
+
+.rrc-title h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* Prediction */
+.rrc-prediction {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 16px;
+  padding: 16px;
+  background: var(--bg-light);
+  border-radius: var(--radius-md);
+}
+
+.rrc-pred-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 150px;
+}
+
+.rrc-pred-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.rrc-pred-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.rrc-pred-conf {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  justify-content: center;
+}
+
+.rrc-conf-bar {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.rrc-conf-fill {
+  height: 100%;
+  background: var(--gradient-accent);
+  border-radius: 4px;
+  transition: width 0.8s ease;
+}
+
+.rrc-conf-pct {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.rrc-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.rrc-info-box {
+  background: var(--warning-light);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  color: var(--warning-dark);
+  margin-bottom: 12px;
+  border-left: 3px solid var(--warning);
+}
+
+/* Recommendations */
+.rrc-recommendations {
+  background: var(--primary-50);
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--primary-500);
+}
+
+.rrc-recommendations h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary-700);
+  margin-bottom: 10px;
+}
+
+.rrc-recommendations ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rrc-recommendations li {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  padding-left: 18px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.rrc-recommendations li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--primary-500);
+  font-weight: 700;
+}
+
+/* Doctor Notes */
+.report-notes-card {
+  background: white;
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.notes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.notes-header h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-700);
+}
+
+.notes-textarea {
+  width: 100%;
+  padding: 14px;
+  border: 2px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-family: inherit;
+  resize: vertical;
+  line-height: 1.6;
+  transition: border-color var(--transition-fast);
+}
+
+.notes-textarea:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.15);
+}
+
+.notes-display {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* Disclaimer */
+.report-disclaimer {
+  background: var(--bg-gray);
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid #e2e8f0;
+}
+
+.report-disclaimer p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* Footer */
+.report-footer-info {
+  text-align: center;
+  padding: 20px;
+}
+
+.report-footer-info p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+/* ─── Print Styles ──────────────────────────────────────────────── */
+@media print {
+  .report-header-bar { display: none; }
+  .report-page { background: white; }
+  .report-container { margin: 0; max-width: 100%; }
+  .notes-header button { display: none; }
+  .btn { display: none; }
+}
+
+/* ─── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .report-container { margin: 16px auto; }
+  .report-title-section { flex-direction: column; gap: 12px; }
+  .report-meta { align-items: flex-start; }
+  .rpc-grid { grid-template-columns: repeat(2, 1fr); }
+  .rrc-prediction { flex-direction: column; gap: 12px; }
+  .rhb-right { gap: 6px; }
+}

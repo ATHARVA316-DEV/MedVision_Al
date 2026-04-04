@@ -1,0 +1,15 @@
+node_modules
+venv
+__pycache__
+.git
+dist
+versions
+.gemini
+exclude.txt
+run_medvision.py
+test_diabetes_model.py
+verify_skin.py
+retrain_skin.py
+task.md
+implementation_plan.md
+walkthrough.md
