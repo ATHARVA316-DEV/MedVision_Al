@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # MedVision AI
 
 **Portable AI-Powered Multi-Disease Screening System**
@@ -95,3 +96,6 @@ Artsy Technologies Pvt Ltd. | @HACKOLYMPIC
 
 ---
 *© 2026 Artsy Technologies Pvt Ltd. All rights reserved.*
+=======
+# MedVision_Al
+>>>>>>> 0458321238053c032e935e6564619c8470c3da2b

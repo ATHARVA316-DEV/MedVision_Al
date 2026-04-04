@@ -1,0 +1,5 @@
+class_index,class,height,width
+0,cataract,224,224
+1,diabetic_retinopathy,224,224
+2,glaucoma,224,224
+3,normal,224,224
