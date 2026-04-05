@@ -116,8 +116,4 @@ MedVision_Al/
 
 ---
 
-## 👥 Team
-
-Developed by **Artsy Technologies Pvt Ltd.** | [@HACKOLYMPIC](https://github.com/HACKOLYMPIC)
-
 *© 2026 Artsy Technologies Pvt Ltd. All rights reserved.*
