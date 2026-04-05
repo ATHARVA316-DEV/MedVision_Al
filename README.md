@@ -95,6 +95,11 @@ Deploying MedVision AI to the cloud is simplified using [Render](https://render.
 
 ---
 
+## 🔌 Hardware Setup
+### 📷 System Overview
+<img width="1204" height="1600" alt="image" src="https://github.com/user-attachments/assets/316924bb-e45d-4cdb-96bd-3c6c1ac17505" />
+
+
 ## 📂 Project Structure
 
 ```text
