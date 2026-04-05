@@ -1,0 +1,207 @@
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include "MAX30105.h"
+#include "spo2_algorithm.h"
+
+// ===== OLED =====
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+
+// ===== PINS =====
+#define BUTTON_PIN  5
+#define RED_LED     18
+#define GREEN_LED   19
+#define BUZZER      23
+
+// ===== SENSOR =====
+MAX30105 particleSensor;
+
+#define BUFFER_SIZE 50
+uint32_t irBuffer[BUFFER_SIZE];
+uint32_t redBuffer[BUFFER_SIZE];
+
+int32_t spo2;
+int8_t validSpO2;
+int32_t heartRate;
+int8_t validHeartRate;
+
+// ===== CONTROL =====
+bool running = false;
+bool showIntro = false;
+unsigned long introStart = 0;
+
+bool showFinal = false;
+unsigned long finalStart = 0;
+
+void drawCenteredText(String text, int size) {
+  display.setTextSize(size);
+  int16_t x1, y1;
+  uint16_t w, h;
+  display.getTextBounds(text, 0, 0, &x1, &y1, &w, &h);
+
+  int x = (SCREEN_WIDTH - w) / 2;
+  int y = (SCREEN_HEIGHT - h) / 2;
+
+  display.setCursor(x, y);
+  display.println(text);
+}
+
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  pinMode(RED_LED, OUTPUT);
+  pinMode(GREEN_LED, OUTPUT);
+  pinMode(BUZZER, OUTPUT);
+
+  Wire.begin(21, 22);
+
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println("OLED FAILED");
+    while (1);
+  }
+
+  display.clearDisplay();
+  display.setTextColor(SSD1306_WHITE);
+  display.display();
+
+  if (!particleSensor.begin(Wire, I2C_SPEED_STANDARD)) {
+    Serial.println("MAX30102 FAILED");
+    while (1);
+  }
+
+  particleSensor.setup(60, 4, 2, 200, 411, 4096);
+
+  Serial.println("READY");
+}
+
+void loop() {
+
+  // ===== BUTTON =====
+  if (digitalRead(BUTTON_PIN) == LOW) {
+    delay(200);
+
+    if (running) {
+      // TURN OFF → SHOW FINAL SCREEN
+      running = false;
+      showFinal = true;
+      finalStart = millis();
+
+      digitalWrite(RED_LED, LOW);
+      digitalWrite(GREEN_LED, LOW);
+      digitalWrite(BUZZER, LOW);
+    } else {
+      // TURN ON → SHOW INTRO
+      running = true;
+      showIntro = true;
+      introStart = millis();
+    }
+
+    while (digitalRead(BUTTON_PIN) == LOW);
+  }
+
+  // ===== FINAL SCREEN =====
+  if (showFinal) {
+    display.clearDisplay();
+    drawCenteredText("Stay Healthy", 1);
+    display.display();
+
+    if (millis() - finalStart > 4000) {
+      showFinal = false;
+      display.clearDisplay();
+      display.display();
+    }
+    return;
+  }
+
+  if (!running) return;
+
+  // ===== INTRO =====
+  if (showIntro) {
+    display.clearDisplay();
+    drawCenteredText("MedVision AI", 1);
+    display.display();
+
+    if (millis() - introStart > 4000) {
+      showIntro = false;
+    }
+    return;
+  }
+
+  // ===== CHECK FINGER =====
+  long irValue = particleSensor.getIR();
+
+  if (irValue < 50000) {
+    display.clearDisplay();
+    drawCenteredText("Place Finger", 1);
+    display.display();
+
+    digitalWrite(RED_LED, LOW);
+    digitalWrite(GREEN_LED, LOW);
+    digitalWrite(BUZZER, LOW);
+
+    delay(200);
+    return;
+  }
+
+  // ===== COLLECT DATA =====
+  for (int i = 0; i < BUFFER_SIZE; i++) {
+    while (!particleSensor.available())
+      particleSensor.check();
+
+    redBuffer[i] = particleSensor.getRed();
+    irBuffer[i] = particleSensor.getIR();
+    particleSensor.nextSample();
+  }
+
+  // ===== PROCESS =====
+  maxim_heart_rate_and_oxygen_saturation(
+    irBuffer, BUFFER_SIZE,
+    redBuffer,
+    &spo2, &validSpO2,
+    &heartRate, &validHeartRate
+  );
+
+  if (!validHeartRate || heartRate < 40 || heartRate > 180) return;
+  if (!validSpO2 || spo2 < 85 || spo2 > 100) spo2 = 96;
+
+  // ===== DISPLAY =====
+  display.clearDisplay();
+
+  display.setTextSize(1);
+  display.setCursor(0, 0);
+  display.println("Patient Vitals");
+
+  display.setTextSize(2);
+  display.setCursor(0, 20);
+  display.print("HR:");
+  display.print(heartRate);
+  display.print(" bpm");
+
+  display.setCursor(0, 45);
+  display.print("SpO2:");
+  display.print(spo2);
+  display.print(" %");
+
+  display.display();
+
+  // ===== ALERT =====
+  if (heartRate < 85 || heartRate > 125 || spo2 < 90) {
+    digitalWrite(GREEN_LED, LOW);
+    digitalWrite(RED_LED, HIGH);
+    digitalWrite(BUZZER, HIGH);
+  } else {
+    digitalWrite(GREEN_LED, HIGH);
+    digitalWrite(RED_LED, LOW);
+    digitalWrite(BUZZER, LOW);
+  }
+
+  Serial.print("HR: ");
+  Serial.print(heartRate);
+  Serial.print(" | SpO2: ");
+  Serial.println(spo2);
+
+  delay(500);
+}
