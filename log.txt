@@ -1,0 +1,22 @@
+commit ab547d9ddc45bf4ce212d6e82a886f3342a1e02d
+Merge: 1965da4 c715f38
+Author: ATHARVA316-DEV <matharva357@gmail.com>
+Date:   Sun Apr 5 08:28:48 2026 +0530
+
+    Merge branch 'main' of https://github.com/ATHARVA316-DEV/MedVision_Al
+
+commit 1965da4deed2d302966f1cf4704fed27f680eead
+Merge: 5b27f27 a86a1cc
+Author: ATHARVA316-DEV <matharva357@gmail.com>
+Date:   Sun Apr 5 07:18:46 2026 +0530
+
+    Merge branch 'main' of https://github.com/ATHARVA316-DEV/MedVision_Al
+    
+    # Conflicts:
+    #       README.md
+
+commit 5b27f278928472e05bc0139a20e7eac4ae6866d0
+Author: ATHARVA316-DEV <matharva357@gmail.com>
+Date:   Sun Apr 5 05:40:14 2026 +0530
+
+    docs: improve README layout and update ML tech stack

@@ -1,0 +1,4 @@
+origin	https://github.com/ATHARVA316-DEV/MedVision_Al.git (fetch)
+origin	https://github.com/ATHARVA316-DEV/MedVision_Al.git (push)
+target	https://github.com/Artsy-Technologies/MedvisionAI.git (fetch)
+target	https://github.com/Artsy-Technologies/MedvisionAI.git (push)
